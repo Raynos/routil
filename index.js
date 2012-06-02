@@ -7,7 +7,8 @@ var ErrorPage = require("error-page"),
 
 var static = require("./lib/static")
 
-var isJSON = /\/(x-)?json$/
+var isJSON = /\/(x-)?json$/,
+    isForm = /application\/x\-www\-form\-urlencoded/
     
 module.exports = Routil()
 
@@ -91,13 +92,13 @@ function Routil(options) {
 
     function sendJson(res, object, statusCode) {
         send(res, JSON.stringify(object), statusCode, {
-            "Content-Type": "application/json"
+            "content-type": "application/json"
         })
     }
 
     function sendHtml(res, data, statusCode) {
         send(res, data, statusCode, {
-            "Content-Type": "text/html"
+            "content-type": "text/html"
         })
     }
 
@@ -108,7 +109,7 @@ function Routil(options) {
         
         res.writeHead(statusCode || res.statusCode || 200, 
             extend((headers || {}), {
-                "Content-Length": data.length
+                "content-length": data.length
             }))
 
         res.end(data)
@@ -158,9 +159,7 @@ function Routil(options) {
     }
 
     function formBody(req, res, callback)  {
-        if (req.headers['Content-Type'] !==
-            'application/x-www-form-urlencoded'
-        ) {
+        if (req.headers['content-type'].match(isForm)) {
             // XXX Add support for formidable uploading, as well
             errorPage(req, res, 415)
         } 
@@ -172,7 +171,7 @@ function Routil(options) {
     }
 
     function jsonBody(req, res, callback) {
-        if (!req.headers["Content-Type"].match(isJSON)) {
+        if (!req.headers["content-type"].match(isJSON)) {
             return errorPage(req, res, 415)
         }
         body(req, extractJSON)
