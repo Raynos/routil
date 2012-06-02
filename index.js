@@ -5,6 +5,8 @@ var ErrorPage = require("error-page"),
     querystring = require("querystring"),
     extend = require("xtend")
 
+var static = require("./lib/static")
+
 var isJSON = /\/(x-)?json$/
     
 module.exports = Routil()
@@ -22,6 +24,8 @@ function Routil(options) {
         errorPage: errorPage,
         redirect: redirect,
         mediaTypes: mediaTypes,
+        static: static,
+        Static: static.Static,
         encoding: encoding,
         sendJson: sendJson,
         sendHtml: sendHtml,
