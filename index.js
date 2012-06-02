@@ -147,7 +147,7 @@ function Routil(options) {
 
         req.on("end", returnBody)
 
-        function addTobody(buffer) {
+        function addToBody(buffer) {
             requestBody += stringDecoder.write(buffer)
         }
 
