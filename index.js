@@ -159,7 +159,7 @@ function Routil(options) {
     }
 
     function formBody(req, res, callback)  {
-        if (req.headers['content-type'].match(isForm)) {
+        if (!req.headers['content-type'].match(isForm)) {
             // XXX Add support for formidable uploading, as well
             errorPage(req, res, 415)
         } 

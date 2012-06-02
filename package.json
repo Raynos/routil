@@ -1,6 +1,6 @@
 {
   "name": "routil",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "gently manipulate req and res",
   "keywords": [],
   "author": "Raynos <raynos2@gmail.com>",
