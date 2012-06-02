@@ -15,7 +15,7 @@ function Routil(options) {
     var config = extend({
         errorPage: {},
         templar: {}
-    }, options)
+    }, options || {})
 
     return {
         config: configure,

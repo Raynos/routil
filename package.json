@@ -1,6 +1,6 @@
 {
   "name": "routil",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "gently manipulate req and res",
   "keywords": [],
   "author": "Raynos <raynos2@gmail.com>",
@@ -21,9 +21,11 @@
   },
   "dependencies": {
     "error-page": "0.0.3",
-    "negotiator": "~0.2.3",
+    "negotiator": "0.2.3",
     "templar": "0.0.6",
-    "xtend": "~1.0.3"
+    "xtend": "1.0.3",
+    "glob": "3.1.9",
+    "filed": "0.0.6"
   },
   "licenses": [
     {
