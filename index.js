@@ -9,11 +9,11 @@ var isJSON = /\/(x-)?json$/
     
 module.exports = Routil()
 
-function Routil() {
-    var config = {
+function Routil(options) {
+    var config = extend({
         errorPage: {},
         templar: {}
-    }
+    }, options)
 
     return {
         config: configure,
@@ -22,6 +22,7 @@ function Routil() {
         errorPage: errorPage,
         redirect: redirect,
         mediaTypes: mediaTypes,
+        encoding: encoding,
         sendJson: sendJson,
         sendHtml: sendHtml,
         send: send,
@@ -75,6 +76,13 @@ function Routil() {
             errorPage(req, res, 
                 [new Error("mediaType not supported"), 415])
         }
+    }
+
+    function encoding(req, object) {
+        var encodes = Object.keys(object),
+            encode = new Negotiator(req).preferredEncoding(encodes)
+
+        return object[mediaType] || object.default
     }
 
     function sendJson(res, object, statusCode) {
