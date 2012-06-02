@@ -27,6 +27,7 @@ function Routil(options) {
         mediaTypes: mediaTypes,
         static: static,
         Static: static.Static,
+        contentTypes: contentTypes,
         encoding: encoding,
         sendJson: sendJson,
         sendHtml: sendHtml,
@@ -83,11 +84,28 @@ function Routil(options) {
         }
     }
 
+    function contentTypes(req, res, object) {
+        var types = Object.keys(object),
+            contentType = req.headers["content-type"],
+            typeMatch
+
+        for (var i = 0; i < types.length; i++) {
+            var type = types[i]
+
+            if (contentType.indexOf(type) !== -1) {
+                typeMatch = type
+                break;
+            }
+        }
+
+        return object[typeMatch] || object.default
+    }
+
     function encoding(req, object) {
         var encodes = Object.keys(object),
             encode = new Negotiator(req).preferredEncoding(encodes)
 
-        return object[mediaType] || object.default
+        return object[encode] || object.default
     }
 
     function sendJson(res, object, statusCode) {
