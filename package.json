@@ -1,0 +1,37 @@
+{
+  "name": "routil",
+  "version": "0.0.1",
+  "description": "gently manipulate req and res",
+  "keywords": [],
+  "author": "Raynos <raynos2@gmail.com>",
+  "repository": "git://github.com/Raynos/routil.git",
+  "main": "index",
+  "scripts": {
+    "test": "make test"
+  },
+  "homepage": "https://github.com/Raynos/routil",
+  "contributors": [
+    {
+      "name": "Jake Verbaten"
+    }
+  ],
+  "bugs": {
+    "url": "https://github.com/Raynos/routil/issues",
+    "email": "raynos2@gmail.com"
+  },
+  "dependencies": {
+    "error-page": "0.0.3",
+    "negotiator": "~0.2.3",
+    "templar": "0.0.6",
+    "xtend": "~1.0.3"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://github.com/raynos/routil/raw/master/LICENSE"
+    }
+  ],
+  "engines": {
+    "node": ">=0.4"
+  }
+}
