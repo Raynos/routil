@@ -4,6 +4,8 @@ Gently manipulate req and res
 
 ## Examples
 
+A lot of this code is inspired by [npm-www][3] and [tako][4]
+
 Routil wraps [ErrorPage][1] and [templar][2] and provides other utilities
 
     var routil = require("routil")
@@ -95,3 +97,5 @@ Most of the code is inspired by isaacs and mikeal
 
   [1]: https://github.com/isaacs/error-page
   [2]: https://github.com/isaacs/templar
+  [3]: https://github.com/isaacs/npm-www
+  [4]: https://github.com/mikeal/tako
