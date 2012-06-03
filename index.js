@@ -138,7 +138,7 @@ function Routil(options) {
         if (handleHttpForms)  {
             return httpFormsRequestHandler
         }
-        return requestHandle
+        return requestHandler
 
         function httpFormsRequestHandler(req, res) {
             if (req.method !== "POST") {
