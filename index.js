@@ -140,16 +140,21 @@ function Routil(options) {
         return requestHandle
 
         function httpFormsRequestHandler(req, res) {
-            if (req.method !== "POST" || 
-                !req.headers["content-type"].match(isForm)
-            ) {
+            if (req.method !== "POST") {
                 return requestHandler.apply(this, arguments)
             }
 
             var args = arguments,
                 self = this
 
-            formBody(req, res, extractMethod)
+            contentTypes(req, {
+                "application/json": function () {
+                    jsonBody(req, res, extractMethod)
+                },
+                "default": function () {
+                    formBody(req, res, extractMethod)
+                }
+            })()
 
             function extractMethod(body) {
                 var method = body._method,
