@@ -62,13 +62,20 @@ Routil wraps [ErrorPage][1] and [templar][2] and provides other utilities
         routil.send(res, data, statusCode, headers)
 
         // Handle different methods. Returns a function which takes req as 
-        // the first parameter and then calls the correct function based on method
+        // the first parameter and then calls the correct function based on 
+        // the method
         var f = methods({
             "GET": handleGet,
             "POST": handlePost,
             "DELETE": handleDelete,
             "PUT": handlePut
         })
+
+        // Handle different methods but also read the _method field on a HTML
+        // form. This will map a POST with _method=PUT to a PUT handler
+        var f = methods({
+            "PUT": worksWithForms
+        }, true)
 
         // Calls Templar(req, res, config)(templateName, data)
         routil.template(req, res, templateName, data)

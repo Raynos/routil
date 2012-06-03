@@ -133,8 +133,35 @@ function Routil(options) {
         res.end(data)
     }
 
-    function methods(routes) {
-        return requestHandler
+    function methods(routes, handleHttpForms) {
+        if (handleHttpForms)  {
+            return httpFormsRequestHandler
+        }
+        return requestHandle
+
+        function httpFormsRequestHandler(req, res) {
+            contentTypes(req, {
+                "application/x-www-form-urlencoded": httpFormsMethodExtraction
+                default: requestHandler
+            }).apply(null, arguments)
+        }
+
+        function httpFormsMethodExtraction(req, res) {
+            var args = arguments,
+                self = this
+
+            formBody(req, res, extractMethod)
+
+            function extractMethod(body) {
+                var method = body._method,
+                    f = routes[method]
+
+                if (f) {
+                    return f.apply(self, args)
+                }
+                errorPage(req, res, 405)
+            }
+        }
 
         function requestHandler(req, res) {
             var method = req.method,
@@ -157,7 +184,7 @@ function Routil(options) {
 
     function body(req, callback) {
         if (req.body) {
-            callback(req.body)
+            callback(req.__body__)
         }
 
         var requestBody = "",
@@ -172,7 +199,7 @@ function Routil(options) {
         }
 
         function returnBody() {
-            req.body = requestBody
+            req.__body__ = requestBody
             callback(requestBody)        
         }
     }
