@@ -50,7 +50,8 @@ function Routil(options) {
     }
 
     function redirect(req, res, target, statusCode) {
-        res.statusCode = statusCode || 302
+        statusCode = statusCode || 302
+        res.statusCode = statusCode
         res.setHeader('location', target)
 
         mediaTypes(req, res, {
