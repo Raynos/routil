@@ -84,7 +84,7 @@ function Routil(options) {
         }
     }
 
-    function contentTypes(req, res, object) {
+    function contentTypes(req, object) {
         var types = Object.keys(object),
             contentType = req.headers["content-type"],
             typeMatch
@@ -136,11 +136,12 @@ function Routil(options) {
     function methods(routes) {
         return requestHandler
 
-        function requestHandler(req, res, params) {
-            var method = req.method
+        function requestHandler(req, res) {
+            var method = req.method,
+                f = routes[method]
 
-            if (routes[method]) {
-                return routes[method](req, res, params)
+            if (f) {
+                return f.apply(this, arguments)
             }
             errorPage(req, res, 405)
         }
