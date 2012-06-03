@@ -140,13 +140,12 @@ function Routil(options) {
         return requestHandle
 
         function httpFormsRequestHandler(req, res) {
-            contentTypes(req, {
-                "application/x-www-form-urlencoded": httpFormsMethodExtraction
-                default: requestHandler
-            }).apply(null, arguments)
-        }
+            if (req.method !== "POST" || 
+                !req.headers["content-type"].match(isForm)
+            ) {
+                return requestHandler.apply(this, arguments)
+            }
 
-        function httpFormsMethodExtraction(req, res) {
             var args = arguments,
                 self = this
 
