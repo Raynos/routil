@@ -188,7 +188,7 @@ function Routil(options) {
     }
 
     function body(req, callback) {
-        if (req.body) {
+        if (req.__body__) {
             callback(req.__body__)
         }
 
