@@ -1,6 +1,8 @@
 var routil = require("../../index"),
     assert = require("assert"),
-    sinon = require("sinon")
+    sinon = require("sinon"),
+    hogan = require("hogan.js"),
+    path = require("path")
 
 describe("Routil", function () {
     describe("API", function () {
@@ -86,18 +88,69 @@ describe("Routil", function () {
     })
 
     describe("template", function () {
+        setUpHogan()
+
         it("should invoke template", function () {
-            
+            var req = makeRequest(),
+                res = makeResponse()
+
+            routil.template(req, res, "foo.mustache", {
+                bar: "text"
+            })
+
+            assert(res.end.calledOnce, "end was not called")
+            assert(res.end.calledWith("text"), "end was not called correctly")
+
+            assert(res.setHeader.calledTwice, "header was not called twice")
+            assert(res.setHeader.calledWith("content-type", "text/html"),
+                "content type was not set properly")
+            assert(res.setHeader.calledWith("etag", sinon.match.string),
+                "etag header was not set properly")
         })
     })
 })
 
-function makeRequest(options) {
-    var req = {
-        url: "/",
-        method: "GET",
-        headers: {}
+function setUpHogan() {
+    var engine = {
+        compile: function (contents, options) {
+            var compiled = hogan.compile(contents, options)
+
+            return renderer
+
+            function renderer(data) {
+                return compiled.render(data)
+            }
+        }
     }
+    var templatePath = path.join(__dirname, "..", "templates")
+
+    routil.config({
+        templar: {
+            engine: engine,
+            folder: templatePath
+        }
+    })
+
+    routil.Templar.loadFolder(templatePath)
+}
+
+function makeRequest(options) {
+    if (!options) {
+        options = {}
+    }
+
+    var setEncoding = sinon.spy(),
+        pause = sinon.spy(),
+        resume = sinon.spy(),
+        req = {
+            url: options.uri || options.url || "/",
+            method: options.method || "GET",
+            headers: options.headers || {},
+            setEncoding: setEncoding,
+            pause: pause,
+            trailers: {},
+            resume: resume
+        }
 
     return req
 }
@@ -105,11 +158,23 @@ function makeRequest(options) {
 function makeResponse() {
     var end = sinon.spy(),
         setHeader = sinon.spy(),
+        getHeader = sinon.spy(),
+        writeContinue = sinon.spy(),
+        writeHead = sinon.spy(),
         head = sinon.spy(),
+        removeHeader = sinon.spy(),
+        write = sinon.spy(),
+        addTrailers = sinon.spy(),
         res = {
             head: head,
             setHeader: setHeader,
-            end: end
+            getHeader: getHeader,
+            end: end,
+            writeContinue: writeContinue,
+            writeHead: writeHead,
+            removeHeader: removeHeader,
+            write: write,
+            addTrailers: addTrailers
         }
 
     return res

@@ -29,7 +29,8 @@
   },
   "devDependencies": {
     "mocha": "1.1.0",
-    "sinon": "git://github.com/cjohansen/Sinon.JS.git"
+    "sinon": "git://github.com/cjohansen/Sinon.JS.git",
+    "hogan.js": "2.0.0"
   },
   "licenses": [
     {
