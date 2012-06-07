@@ -11,9 +11,7 @@ var ErrorPage = require("error-page"),
     body = require("./lib/body"),
     send = require("./lib/send"),
     sendJson = send.sendJson,
-    sendHtml = send.sendHtml,
-    isJSON = /\/(x-)?json$/,
-    isForm = /application\/x\-www\-form\-urlencoded/
+    sendHtml = send.sendHtml
     
 module.exports = Routil()
 

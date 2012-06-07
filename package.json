@@ -28,7 +28,8 @@
     "filed": "0.0.6"
   },
   "devDependencies": {
-    "mocha": "1.1.0"
+    "mocha": "1.1.0",
+    "sinon": "git://github.com/cjohansen/Sinon.JS.git"
   },
   "licenses": [
     {
