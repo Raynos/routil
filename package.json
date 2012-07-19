@@ -1,6 +1,6 @@
 {
   "name": "routil",
-  "version": "0.0.14",
+  "version": "0.1.0",
   "description": "gently manipulate req and res",
   "keywords": [],
   "author": "Raynos <raynos2@gmail.com>",
@@ -20,17 +20,8 @@
     "email": "raynos2@gmail.com"
   },
   "dependencies": {
-    "error-page": "0.0.3",
-    "negotiator": "0.2.3",
-    "templar": "0.0.6",
-    "xtend": "1.0.3",
-    "glob": "3.1.9",
-    "filed": "0.0.6"
   },
   "devDependencies": {
-    "mocha": "1.1.0",
-    "sinon": "git://github.com/cjohansen/Sinon.JS.git",
-    "hogan.js": "2.0.0"
   },
   "licenses": [
     {
