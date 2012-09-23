@@ -18,7 +18,7 @@ The notion behind the routil concept is that you don't need a web framework when
  - [templar][8]
  - [error-page][9]
  - [body][10]
- - [method][11]
+ - [http-methods][11]
  - More to come!
         
 ## MIT Licenced
@@ -33,4 +33,4 @@ The notion behind the routil concept is that you don't need a web framework when
   [8]: https://github.com/isaacs/templar
   [9]: https://github.com/isaacs/error-page
   [10]: https://github.com/Raynos/body
-  [11]: https://github.com/Raynos/method
+  [11]: https://github.com/Raynos/http-methods
